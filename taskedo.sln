@@ -11,7 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskedo.Tasks.Application",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskedo.Tasks.Database.EF", "Taskedo.Tasks.Database.EF\Taskedo.Tasks.Database.EF.csproj", "{590B3377-2291-4476-A881-B54762BBE3A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskedo.Tasks.Database.Migrations", "Taskedo.Tasks.Database.Migrations\Taskedo.Tasks.Database.Migrations.csproj", "{E422C059-D993-4A18-B3FC-2A340F523622}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskedo.Tasks.Database.Changes", "Taskedo.Tasks.Database.Changes\Taskedo.Tasks.Database.Changes.csproj", "{E422C059-D993-4A18-B3FC-2A340F523622}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskedo.Tasks.Database.Startup", "Taskedo.Tasks.Database.Startup\Taskedo.Tasks.Database.Startup.csproj", "{A3BAAA9B-7B15-4A88-A762-C040877ABFC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,5 +44,9 @@ Global
 		{E422C059-D993-4A18-B3FC-2A340F523622}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E422C059-D993-4A18-B3FC-2A340F523622}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E422C059-D993-4A18-B3FC-2A340F523622}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3BAAA9B-7B15-4A88-A762-C040877ABFC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3BAAA9B-7B15-4A88-A762-C040877ABFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3BAAA9B-7B15-4A88-A762-C040877ABFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3BAAA9B-7B15-4A88-A762-C040877ABFC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

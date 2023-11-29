@@ -1,0 +1,10 @@
+services:
+  database:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 1433:1433
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "${DB__PASSWORD}"
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$DB__PASSWORD" -Q "SELECT 1" || exit 1
