@@ -13,7 +13,7 @@ public static class Program
     public static IHostBuilder CreateHostBuilder(string[] args)
         => Host.CreateDefaultBuilder(args).ConfigureServices((services) =>
         {
-            var connectionString = Environment.GetEnvironmentVariable("DB__CONNECTION_STRING");
+            var connectionString = Environment.GetEnvironmentVariable("DB__MIGRATION_CONNECTION_STRING");
             services.AddDbContext<TasksContext>(builder => builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("Taskedo.Tasks.Database.Changes")));
         });
 }
