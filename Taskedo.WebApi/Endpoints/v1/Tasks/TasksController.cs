@@ -29,7 +29,7 @@ public class TasksController : BaseController
     /// <returns>Found set of Tasks according the page</returns>
     [HttpGet]
     [Consumes("application/json")]
-    [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(SlimTasksResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> GetTasksAsync([FromQuery] int? pageSize, [FromQuery] string? pageToken)

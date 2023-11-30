@@ -1,4 +1,5 @@
 using AutoMapper;
+using Taskedo.Tasks.Application.QueryTask;
 using Taskedo.Tasks.Application.QueryTasks;
 using Taskedo.Tasks.Domain;
 
@@ -8,6 +9,7 @@ public class RequestResponseProfile : Profile
 {
     public RequestResponseProfile()
     {
+        CreateMap<TaskEntity, TaskResponse>();
         CreateMap<SlimTaskEntity, SlimTaskResponse>();
     }
 }

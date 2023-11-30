@@ -28,13 +28,19 @@ source .env
 
 ### Database Migrations
 
+Startup a separate DB container to calculate changes:
+
 ```sh
 docker compose --env-file .env -f ./build/docker-compose.migrations.yml -p taskedomigrations up
 ```
 
+Apply already created migrations on the DB:
+
 ```sh
 dotnet ef database update -p Taskedo.Tasks.Database.Changes -s Taskedo.Tasks.Database.Startup
 ```
+
+Create a new migration:
 
 ```sh
 dotnet ef migrations add -p Taskedo.Tasks.Database.Changes -s Taskedo.Tasks.Database.Startup "Add_Task_Table"

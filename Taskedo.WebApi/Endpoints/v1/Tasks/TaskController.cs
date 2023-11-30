@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Taskedo.Tasks.Application.AddNewTask;
+using Taskedo.Tasks.Application.QueryTask;
 
 namespace Taskedo.WebApi.Endpoints.v1.Tasks;
 
@@ -37,5 +38,27 @@ public class TaskController : BaseController
     {
         var result = await _mediator.Send(new AddNewTaskCommand { Payload = request });
         return ToActionResult<Guid>(result, _logger);
+    }
+
+    /// <summary>
+    /// Return a Task
+    /// </summary>
+    /// <response code="200">Returns Task.</response>
+    /// <response code="400">Validation error.</response>
+    /// <response code="404">Task not found.</response>
+    /// <response code="500">Error while trying to fetch the Task. / Other errors</response>
+    /// <param name="taskId">Task Id</param>
+    /// <returns>Found Task</returns>
+    [HttpPost]
+    [Consumes("application/json")]
+    [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult> GetTaskAsync([FromQuery] Guid taskId)
+    {
+        var request = new QueryTaskRequest { TaskId = taskId };
+        var result = await _mediator.Send(new GetTaskQuery { Payload = request });
+        return ToActionResult<TaskResponse>(result, _logger);
     }
 }
