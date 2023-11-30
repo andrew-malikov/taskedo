@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Taskedo.Tasks.Application.AddNewTask;
 using Taskedo.Tasks.Application.DeleteTask;
 using Taskedo.Tasks.Application.QueryTask;
+using Taskedo.Tasks.Application.UpdateTask;
 
 namespace Taskedo.WebApi.Endpoints.v1.Tasks;
 
@@ -23,13 +24,13 @@ public class TaskController : BaseController
     }
 
     /// <summary>
-    /// Adds a new task.
+    /// Adds a new Task.
     /// </summary>
-    /// <response code="200">Returns task id.</response>
+    /// <response code="200">Returns Task Id.</response>
     /// <response code="400">Validation error.</response>
-    /// <response code="500">Error while trying to add the task. / Other errors</response>
-    /// <param name="request">New task</param>
-    /// <returns>Added task id</returns>
+    /// <response code="500">Error while trying to add the Task. / Other errors</response>
+    /// <param name="request">New Task</param>
+    /// <returns>Added Task Id</returns>
     [HttpPost]
     [Consumes("application/json")]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
@@ -52,7 +53,7 @@ public class TaskController : BaseController
     /// <returns>Found Task</returns>
     [HttpGet("/{taskId}")]
     [Consumes("application/json")]
-    [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(TaskResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
@@ -81,5 +82,24 @@ public class TaskController : BaseController
         var request = new DeleteTaskRequest { TaskId = taskId };
         var result = await _mediator.Send(new DeleteTaskCommand { Payload = request });
         return ToActionResult<int>(result, _logger);
+    }
+
+    /// <summary>
+    /// Updates a Task.
+    /// </summary>
+    /// <response code="200">Task is updated.</response>
+    /// <response code="400">Validation error.</response>
+    /// <response code="500">Error while trying to update the Task. / Other errors</response>
+    /// <param name="request">Updated Task</param>
+    /// <returns>Updated task id</returns>
+    [HttpPut]
+    [Consumes("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult> UpdateTaskAsync([FromBody] UpdateTaskRequest request)
+    {
+        var result = await _mediator.Send(new UpdateTaskCommand { Payload = request });
+        return ToActionResult<uint>(result, _logger);
     }
 }
