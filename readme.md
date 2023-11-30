@@ -45,5 +45,5 @@ dotnet ef migrations add -p Taskedo.Tasks.Database.Changes -s Taskedo.Tasks.Data
 ### With Docker Compose
 
 ```sh
-docker compose --env-file .env -f ./build/docker-compose.yml -p taskedo up
+docker compose --env-file .env -f ./build/docker-compose.yml -p taskedo up --build
 ```

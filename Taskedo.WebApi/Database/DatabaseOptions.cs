@@ -1,6 +1,6 @@
 namespace Taskedo.WebApi.Database;
 
-internal class DatabaseOptions
+public class DatabaseOptions
 {
     public const string DatabaseSection = "Db";
 

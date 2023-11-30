@@ -9,5 +9,5 @@ public interface ITaskRepository
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task AddTaskAsync(NewTask newTask);
+    Task<Guid> AddTaskAsync(NewTask newTask);
 }

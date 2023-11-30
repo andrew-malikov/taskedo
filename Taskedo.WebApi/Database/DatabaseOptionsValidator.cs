@@ -2,7 +2,7 @@ using FluentValidation;
 
 namespace Taskedo.WebApi.Database;
 
-internal class DatabaseOptionsValidator : AbstractValidator<DatabaseOptions>
+public class DatabaseOptionsValidator : AbstractValidator<DatabaseOptions>
 {
     public DatabaseOptionsValidator()
     {

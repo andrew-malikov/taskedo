@@ -1,9 +1,7 @@
-using MediatR;
-
-public class AddNewTaskRequest : IRequest
+public class AddNewTaskRequest
 {
-    public string Title { init; get; }
-    public string Description { init; get; }
-    public DateTime DueDateAtUtc { init; get; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public DateTime DueDateAtUtc { get; set; }
 }
 

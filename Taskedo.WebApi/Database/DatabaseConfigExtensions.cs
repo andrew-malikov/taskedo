@@ -1,10 +1,11 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Taskedo.Tasks.Database.EF;
+using Taskedo.Tasks.Domain;
 
 namespace Taskedo.WebApi.Database;
 
-internal static class DatabaseConfigExtensions
+public static class DatabaseConfigExtensions
 {
     public static WebApplicationBuilder ConfigureDatabase(this WebApplicationBuilder builder)
     {
@@ -16,7 +17,8 @@ internal static class DatabaseConfigExtensions
             .Configure<DatabaseOptions>(dbOptionsSection)
             .AddTransient<IValidator<DatabaseOptions>, DatabaseOptionsValidator>()
             .AddTransient<IStartupFilter, DatabaseOptionsStartupFilter>()
-            .AddDbContext<TasksContext>(builder => builder.UseSqlServer(dbOptions.ConnectionString, b => b.MigrationsAssembly("Taskedo.Tasks.Database.Changes")));
+            .AddDbContext<TasksContext>(builder => builder.UseSqlServer(dbOptions.ConnectionString, b => b.MigrationsAssembly("Taskedo.Tasks.Database.Changes")))
+            .AddScoped<ITaskRepository, TaskRepository>();
 
         return builder;
     }

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace Taskedo.WebApi.Database;
 
-internal class DatabaseOptionsStartupFilter : IStartupFilter
+public class DatabaseOptionsStartupFilter : IStartupFilter
 {
     private readonly DatabaseOptions _databaseOptions;
     private readonly IValidator<DatabaseOptions> _databaseOptionsValidator;
