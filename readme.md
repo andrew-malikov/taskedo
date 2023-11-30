@@ -20,7 +20,7 @@ Copy the example to the repository root and set them up:
 cp .config/.env.example .env
 ```
 
-If you need them for a local run just print them out to shell:
+If you need them for a local run, just print them out to shell:
 
 ```sh
 source .env

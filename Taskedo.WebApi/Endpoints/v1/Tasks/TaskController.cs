@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Taskedo.Tasks.Application.AddNewTask;
+using Taskedo.Tasks.Application.DeleteTask;
 using Taskedo.Tasks.Application.QueryTask;
 
 namespace Taskedo.WebApi.Endpoints.v1.Tasks;
@@ -49,16 +50,36 @@ public class TaskController : BaseController
     /// <response code="500">Error while trying to fetch the Task. / Other errors</response>
     /// <param name="taskId">Task Id</param>
     /// <returns>Found Task</returns>
-    [HttpPost]
+    [HttpGet("/{taskId}")]
     [Consumes("application/json")]
     [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult> GetTaskAsync([FromQuery] Guid taskId)
+    public async Task<ActionResult> GetTaskAsync([FromRoute] Guid taskId)
     {
         var request = new QueryTaskRequest { TaskId = taskId };
         var result = await _mediator.Send(new GetTaskQuery { Payload = request });
         return ToActionResult<TaskResponse>(result, _logger);
+    }
+
+    /// <summary>
+    /// Deletes a Task
+    /// </summary>
+    /// <response code="200">Task is deleted.</response>
+    /// <response code="400">Validation error.</response>
+    /// <response code="500">Error while trying to delete the Task. / Other errors</response>
+    /// <param name="taskId">Task Id</param>
+    /// <returns></returns>
+    [HttpDelete("/{taskId}")]
+    [Consumes("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult> DeleteTaskAsync([FromRoute] Guid taskId)
+    {
+        var request = new DeleteTaskRequest { TaskId = taskId };
+        var result = await _mediator.Send(new DeleteTaskCommand { Payload = request });
+        return ToActionResult<int>(result, _logger);
     }
 }
