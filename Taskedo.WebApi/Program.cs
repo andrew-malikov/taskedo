@@ -7,6 +7,7 @@ using Serilog;
 using Serilog.Events;
 using Swashbuckle.AspNetCore.Filters;
 using Taskedo.Swagger;
+using Taskedo.Tasks.Application;
 using Taskedo.Tasks.Application.AddNewTask;
 using Taskedo.Tasks.Database.EF;
 using Taskedo.WebApi.Database;
@@ -36,7 +37,7 @@ builder.Services.AddSwaggerGen(SwaggerConfig.SwaggerGenConfig)
 builder.ConfigureDatabase();
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(typeof(AddNewTaskHandler).Assembly));
 builder.Services.AddValidatorsFromAssemblyContaining<AddNewTaskRequestValidator>();
-builder.Services.AddAutoMapper(typeof(DbEntitiesProfile));
+builder.Services.AddAutoMapper(typeof(DbEntitiesProfile), typeof(RequestResponseProfile));
 
 var app = builder.Build();
 

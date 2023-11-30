@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Taskedo.Tasks.Application.AddNewTask;
 
 namespace Taskedo.WebApi.Endpoints.v1.Tasks;
 

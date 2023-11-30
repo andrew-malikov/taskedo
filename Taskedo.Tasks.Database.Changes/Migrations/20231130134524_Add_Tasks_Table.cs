@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Taskedo.Tasks.Database.Changes.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTasktable : Migration
+    public partial class Add_Tasks_Table : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,15 +16,21 @@ namespace Taskedo.Tasks.Database.Changes.Migrations
                 columns: table => new
                 {
                     TaskId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(2047)", maxLength: 2047, nullable: false, defaultValue: ""),
                     DueDateAtUtc = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Task", x => x.TaskId);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IsDeleted",
+                table: "Task",
+                column: "IsDeleted");
         }
 
         /// <inheritdoc />

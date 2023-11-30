@@ -5,7 +5,7 @@ public class SlimTaskEntity(Guid taskId,
                             DateTime dueDateAtUtc,
                             bool isCompleted)
 {
-    public Guid TaskkId = taskId;
+    public Guid TaskId = taskId;
     public string Title = title;
     public DateTime DueDateAtUtc = dueDateAtUtc;
     public bool IsCompleted = isCompleted;

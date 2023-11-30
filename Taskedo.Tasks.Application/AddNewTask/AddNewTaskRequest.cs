@@ -1,3 +1,5 @@
+namespace Taskedo.Tasks.Application.AddNewTask;
+
 public class AddNewTaskRequest
 {
     public string Title { get; set; }

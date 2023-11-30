@@ -15,8 +15,8 @@ public class TasksContext : DbContext
         modelBuilder.Entity<TaskDbEntity>().ToTable("Task");
         modelBuilder.Entity<TaskDbEntity>().Property(t => t.TaskId).HasColumnName("TaskId");
         modelBuilder.Entity<TaskDbEntity>().HasKey(t => t.TaskId);
-        modelBuilder.Entity<TaskDbEntity>().Property(t => t.Title).HasColumnName("Title");
-        modelBuilder.Entity<TaskDbEntity>().Property(t => t.Description).HasColumnName("Description");
+        modelBuilder.Entity<TaskDbEntity>().Property(t => t.Title).HasColumnName("Title").HasMaxLength(255);
+        modelBuilder.Entity<TaskDbEntity>().Property(t => t.Description).HasColumnName("Description").HasMaxLength(2047).HasDefaultValue("");
         modelBuilder.Entity<TaskDbEntity>().Property(t => t.IsCompleted).HasColumnName("IsCompleted");
         modelBuilder.Entity<TaskDbEntity>().Property(t => t.DueDateAtUtc).HasColumnName("DueDateAtUtc");
         modelBuilder.Entity<TaskDbEntity>().Property(t => t.IsDeleted).HasColumnName("IsDeleted").HasDefaultValue(false);

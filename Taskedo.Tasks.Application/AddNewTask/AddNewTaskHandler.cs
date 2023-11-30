@@ -1,9 +1,10 @@
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
-using Taskedo.Tasks.Application;
 using Taskedo.Tasks.Domain;
 using Taskedo.Tasks.Domain.CreateTask;
+
+namespace Taskedo.Tasks.Application.AddNewTask;
 
 public class AddNewTaskCommand : IRequest<ICommandResult>
 {

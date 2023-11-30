@@ -12,8 +12,8 @@ using Taskedo.Tasks.Database.EF;
 namespace Taskedo.Tasks.Database.Changes.Migrations
 {
     [DbContext(typeof(TasksContext))]
-    [Migration("20231129144357_Add Task table")]
-    partial class AddTasktable
+    [Migration("20231130134524_Add_Tasks_Table")]
+    partial class Add_Tasks_Table
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,10 @@ namespace Taskedo.Tasks.Database.Changes.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(2047)
+                        .HasColumnType("nvarchar(2047)")
+                        .HasDefaultValue("")
                         .HasColumnName("Description");
 
                     b.Property<DateTime>("DueDateAtUtc")
@@ -45,12 +48,21 @@ namespace Taskedo.Tasks.Database.Changes.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("IsCompleted");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("Title");
 
                     b.HasKey("TaskId");
+
+                    b.HasIndex(new[] { "IsDeleted" }, "IsDeleted");
 
                     b.ToTable("Task", (string)null);
                 });

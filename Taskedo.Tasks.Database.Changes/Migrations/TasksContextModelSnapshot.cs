@@ -31,7 +31,10 @@ namespace Taskedo.Tasks.Database.Changes.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(2047)
+                        .HasColumnType("nvarchar(2047)")
+                        .HasDefaultValue("")
                         .HasColumnName("Description");
 
                     b.Property<DateTime>("DueDateAtUtc")
@@ -42,12 +45,21 @@ namespace Taskedo.Tasks.Database.Changes.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("IsCompleted");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("IsDeleted");
+
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)")
                         .HasColumnName("Title");
 
                     b.HasKey("TaskId");
+
+                    b.HasIndex(new[] { "IsDeleted" }, "IsDeleted");
 
                     b.ToTable("Task", (string)null);
                 });
