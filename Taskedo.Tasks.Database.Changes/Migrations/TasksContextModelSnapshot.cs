@@ -29,6 +29,10 @@ namespace Taskedo.Tasks.Database.Changes.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TaskId");
 
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedAtUtc");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
@@ -58,6 +62,8 @@ namespace Taskedo.Tasks.Database.Changes.Migrations
                         .HasColumnName("Title");
 
                     b.HasKey("TaskId");
+
+                    b.HasIndex(new[] { "CreatedAtUtc" }, "CreatedAtUtc");
 
                     b.HasIndex(new[] { "IsDeleted" }, "IsDeleted");
 

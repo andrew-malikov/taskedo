@@ -32,9 +32,10 @@ public class TasksController : BaseController
     [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async Task<ActionResult> GetTasksAsync()
+    public async Task<ActionResult> GetTasksAsync([FromQuery] int? pageSize, [FromQuery] string? pageToken)
     {
-        var result = await _mediator.Send(new QueryTasksRequest());
+        var queryRequest = new QueryTasksRequest { PageSize = pageSize ?? 10, PageToken = pageToken };
+        var result = await _mediator.Send(new GetTasksQuery { Payload = queryRequest });
         return ToActionResult<SlimTasksResponse>(result, _logger);
     }
 }

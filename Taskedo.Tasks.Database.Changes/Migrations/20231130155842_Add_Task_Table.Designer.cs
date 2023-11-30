@@ -12,8 +12,8 @@ using Taskedo.Tasks.Database.EF;
 namespace Taskedo.Tasks.Database.Changes.Migrations
 {
     [DbContext(typeof(TasksContext))]
-    [Migration("20231130134524_Add_Tasks_Table")]
-    partial class Add_Tasks_Table
+    [Migration("20231130155842_Add_Task_Table")]
+    partial class Add_Task_Table
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,10 @@ namespace Taskedo.Tasks.Database.Changes.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("TaskId");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreatedAtUtc");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -61,6 +65,8 @@ namespace Taskedo.Tasks.Database.Changes.Migrations
                         .HasColumnName("Title");
 
                     b.HasKey("TaskId");
+
+                    b.HasIndex(new[] { "CreatedAtUtc" }, "CreatedAtUtc");
 
                     b.HasIndex(new[] { "IsDeleted" }, "IsDeleted");
 

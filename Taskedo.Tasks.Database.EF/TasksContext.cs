@@ -20,7 +20,9 @@ public class TasksContext : DbContext
         modelBuilder.Entity<TaskDbEntity>().Property(t => t.IsCompleted).HasColumnName("IsCompleted");
         modelBuilder.Entity<TaskDbEntity>().Property(t => t.DueDateAtUtc).HasColumnName("DueDateAtUtc");
         modelBuilder.Entity<TaskDbEntity>().Property(t => t.IsDeleted).HasColumnName("IsDeleted").HasDefaultValue(false);
+        modelBuilder.Entity<TaskDbEntity>().Property(t => t.CreatedAtUtc).HasColumnName("CreatedAtUtc");
         modelBuilder.Entity<TaskDbEntity>().HasIndex(t => t.IsDeleted, "IsDeleted");
+        modelBuilder.Entity<TaskDbEntity>().HasIndex(t => t.CreatedAtUtc, "CreatedAtUtc");
         modelBuilder.Entity<TaskDbEntity>().HasQueryFilter(t => !t.IsDeleted);
 
         base.OnModelCreating(modelBuilder);

@@ -48,13 +48,23 @@ public class TaskRepository : ITaskRepository
         }
     }
 
-    public async Task<Result<IEnumerable<SlimTaskEntity>>> GetAllTasksAsync()
+    public async Task<Result<IEnumerable<SlimTaskEntity>>> GetAllTasksAsync(int pageSize, DateTime? pageToken = null)
     {
         try
         {
-            var tasks = await _context.Tasks
-                .AsNoTracking()
-                .Select(t => new SlimTaskEntity(t.TaskId, t.Title, t.DueDateAtUtc, t.IsCompleted))
+            var tasksQuery = _context.Tasks
+                .AsNoTracking();
+
+            if (pageToken != null && pageToken.HasValue)
+            {
+                tasksQuery = tasksQuery.Where(t => t.CreatedAtUtc <= pageToken);
+            }
+
+            var tasks = await tasksQuery
+                .OrderByDescending(t => t.CreatedAtUtc)
+                .ThenBy(t => t.TaskId)
+                .Select(t => new SlimTaskEntity(t.TaskId, t.Title, t.DueDateAtUtc, t.IsCompleted, t.CreatedAtUtc))
+                .Take(pageSize)
                 .ToListAsync();
 
             return Result.Ok(tasks as IEnumerable<SlimTaskEntity>);

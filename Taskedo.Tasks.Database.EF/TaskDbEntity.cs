@@ -8,4 +8,5 @@ public class TaskDbEntity
     public DateTime DueDateAtUtc { get; set; }
     public bool IsCompleted { get; set; }
     public bool IsDeleted { get; set; }
+    public DateTime CreatedAtUtc { get; set; }
 }

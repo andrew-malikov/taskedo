@@ -37,7 +37,7 @@ dotnet ef database update -p Taskedo.Tasks.Database.Changes -s Taskedo.Tasks.Dat
 ```
 
 ```sh
-dotnet ef migrations add -p Taskedo.Tasks.Database.Changes -s Taskedo.Tasks.Database.Startup "Add Task table"
+dotnet ef migrations add -p Taskedo.Tasks.Database.Changes -s Taskedo.Tasks.Database.Startup "Add_Task_Table"
 ```
 
 ## Run

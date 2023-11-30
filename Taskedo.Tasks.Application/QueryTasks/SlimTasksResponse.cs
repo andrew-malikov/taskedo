@@ -11,5 +11,5 @@ public class SlimTaskResponse
 public class SlimTasksResponse
 {
     public IEnumerable<SlimTaskResponse> Tasks { get; set; }
-    public string NextPageToken { get; set; } = string.Empty;
+    public string? NextPageToken { get; set; } = null;
 }
