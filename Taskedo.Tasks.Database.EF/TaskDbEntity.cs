@@ -7,4 +7,5 @@ public class TaskDbEntity
     public string Description { get; set; }
     public DateTime DueDateAtUtc { get; set; }
     public bool IsCompleted { get; set; }
+    public bool IsDeleted { get; set; }
 }

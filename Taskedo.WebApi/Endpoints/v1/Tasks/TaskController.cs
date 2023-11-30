@@ -3,15 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Taskedo.WebApi.Endpoints.v1.Tasks;
 
+/// <summary>
+/// Manages Task entity
+/// </summary>
 [ApiController]
 [Route("api/v1/task")]
-public class TaskController : ControllerBase
+public class TaskController : BaseController
 {
     private readonly IMediator _mediator;
+    private readonly ILogger<TaskController> _logger;
 
-    public TaskController(IMediator mediator)
+    public TaskController(IMediator mediator, ILogger<TaskController> logger)
     {
         _mediator = mediator;
+        _logger = logger;
     }
 
     /// <summary>
@@ -27,8 +32,9 @@ public class TaskController : ControllerBase
     [ProducesResponseType(typeof(Guid), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async Task AddNewTaskAsync([FromBody] AddNewTaskRequest request)
+    public async Task<ActionResult> AddNewTaskAsync([FromBody] AddNewTaskRequest request)
     {
-        await _mediator.Send(new AddNewTaskCommand { Payload = request });
+        var result = await _mediator.Send(new AddNewTaskCommand { Payload = request });
+        return ToActionResult<Guid>(result, _logger);
     }
 }

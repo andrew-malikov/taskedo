@@ -2,6 +2,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Swashbuckle.AspNetCore.Filters;
@@ -38,6 +39,21 @@ builder.Services.AddValidatorsFromAssemblyContaining<AddNewTaskRequestValidator>
 builder.Services.AddAutoMapper(typeof(DbEntitiesProfile));
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+{
+    using var scope = app.Services.CreateScope();
+    using var appContext = scope.ServiceProvider.GetRequiredService<TasksContext>();
+
+    try
+    {
+        await appContext.Database.MigrateAsync();
+    }
+    catch (Exception)
+    {
+        throw;
+    }
+}
 
 app.UseSwagger();
 app.UseSwaggerUI();

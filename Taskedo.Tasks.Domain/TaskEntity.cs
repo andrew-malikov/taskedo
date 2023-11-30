@@ -1,23 +1,14 @@
 ﻿namespace Taskedo.Tasks.Domain;
 
-public class TaskEntity
+public class TaskEntity(Guid taskId,
+                        string title,
+                        string description,
+                        DateTime dueDateAtUtc,
+                        bool isCompleted)
 {
-    public Guid TaskkId;
-    public string Title;
-    public string Description;
-    public DateTime DueDateAtUtc;
-    public bool IsCompleted;
-
-    public TaskEntity(Guid taskId,
-                      string title,
-                      string description,
-                      DateTime dueDateAtUtc,
-                      bool isCompleted)
-    {
-        TaskkId = taskId;
-        Title = title;
-        Description = description;
-        DueDateAtUtc = dueDateAtUtc;
-        IsCompleted = isCompleted;
-    }
+    public Guid TaskId { get; } = taskId;
+    public string Title { get; } = title;
+    public string Description { get; } = description;
+    public DateTime DueDateAtUtc { get; } = dueDateAtUtc;
+    public bool IsCompleted { get; } = isCompleted;
 }

@@ -1,14 +1,16 @@
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
+using Taskedo.Tasks.Application;
 using Taskedo.Tasks.Domain;
 using Taskedo.Tasks.Domain.CreateTask;
 
-public class AddNewTaskCommand : IRequest
+public class AddNewTaskCommand : IRequest<ICommandResult>
 {
     public required AddNewTaskRequest Payload { init; get; }
 }
 
-public class AddNewTaskHandler : IRequestHandler<AddNewTaskCommand>
+public class AddNewTaskHandler : IRequestHandler<AddNewTaskCommand, ICommandResult>
 {
     private readonly ITaskRepository _taskRepository;
     private readonly IValidator<AddNewTaskRequest> _requestValidator;
@@ -21,34 +23,31 @@ public class AddNewTaskHandler : IRequestHandler<AddNewTaskCommand>
         _requestValidator = requestValidator;
     }
 
-    // TODO: use special Error type
-    public async Task Handle(AddNewTaskCommand command, CancellationToken cancellationToken)
+    public async Task<ICommandResult> Handle(AddNewTaskCommand command, CancellationToken cancellationToken)
     {
-        // TODO: validate the command payload
-        var validationResult = _requestValidator.Validate(command.Payload);
-
-        NewTask? newTask;
-        try
+        ValidationResult validationResult = _requestValidator.Validate(command.Payload);
+        if (!validationResult.IsValid)
         {
-            newTask = NewTask.From(command.Payload.Title, command.Payload.Description, command.Payload.DueDateAtUtc);
-        }
-        catch (ArgumentException)
-        {
-            // TODO: return ValidationError
-            return;
+            return new ICommandResult.ValidationError
+            {
+                Errors = validationResult.Errors
+            };
         }
 
-        try
-        {
+        var newTask = new NewTaskEntity(command.Payload.Title, command.Payload.Description, command.Payload.DueDateAtUtc);
 
-            await _taskRepository.AddTaskAsync(newTask);
-        }
-        catch (Exception)
+        var saveResult = await _taskRepository.AddTaskAsync(newTask);
+        if (saveResult.IsFailed)
         {
-            // TODO: return InternalError
-            return;
+            return new ICommandResult.InternalError
+            {
+                Errors = saveResult.Errors
+            };
         }
 
-        return;
+        return new ICommandResult.Success<Guid>
+        {
+            Data = saveResult.Value
+        };
     }
 }

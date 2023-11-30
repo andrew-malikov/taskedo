@@ -7,7 +7,7 @@ public class DbEntitiesProfile : Profile
 {
     public DbEntitiesProfile()
     {
-        CreateMap<NewTask, TaskDbEntity>()
+        CreateMap<NewTaskEntity, TaskDbEntity>()
             .ForMember(dest => dest.IsCompleted, (opt) => opt.MapFrom(_ => false));
         CreateMap<TaskDbEntity, Task>();
     }
