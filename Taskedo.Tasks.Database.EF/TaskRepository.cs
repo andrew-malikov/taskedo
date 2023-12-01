@@ -36,10 +36,9 @@ public class TaskRepository : ITaskRepository
     {
         try
         {
-            var task = await _context.Tasks.FirstAsync(t => t.TaskId == taskId);
-            task.IsDeleted = true;
-            _context.Tasks.Update(task);
-            await _context.SaveChangesAsync();
+            await _context.Tasks
+                .Where(t => t.TaskId == taskId)
+                .ExecuteUpdateAsync(setters => setters.SetProperty(t => t.IsDeleted, true));
             return Result.Ok();
         }
         catch (Exception ex)
@@ -110,12 +109,13 @@ public class TaskRepository : ITaskRepository
     {
         try
         {
-            await _context.Tasks.Where(t => t.TaskId == updateTask.TaskId).ExecuteUpdateAsync(
-                setters => setters.SetProperty(t => t.Title, updateTask.Title)
-                                  .SetProperty(t => t.Description, updateTask.Description)
-                                  .SetProperty(t => t.DueDateAtUtc, updateTask.DueDateAtUtc)
-                                  .SetProperty(t => t.IsCompleted, updateTask.IsCompleted)
-            );
+            await _context.Tasks
+                .Where(t => t.TaskId == updateTask.TaskId)
+                .ExecuteUpdateAsync(setters => setters
+                    .SetProperty(t => t.Title, updateTask.Title)
+                    .SetProperty(t => t.Description, updateTask.Description)
+                    .SetProperty(t => t.DueDateAtUtc, updateTask.DueDateAtUtc)
+                    .SetProperty(t => t.IsCompleted, updateTask.IsCompleted));
             return Result.Ok();
         }
         catch (Exception ex)

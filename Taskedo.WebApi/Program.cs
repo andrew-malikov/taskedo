@@ -40,6 +40,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<AddNewTaskRequestValidator>
 builder.Services.AddAutoMapper(typeof(DbEntitiesProfile), typeof(RequestResponseProfile));
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
