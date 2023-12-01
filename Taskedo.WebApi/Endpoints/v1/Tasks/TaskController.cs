@@ -51,7 +51,7 @@ public class TaskController : BaseController
     /// <response code="500">Error while trying to fetch the Task. / Other errors</response>
     /// <param name="taskId">Task Id</param>
     /// <returns>Found Task</returns>
-    [HttpGet("/{taskId}")]
+    [HttpGet("{taskId}")]
     [Consumes("application/json")]
     [ProducesResponseType(typeof(TaskResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
@@ -72,7 +72,7 @@ public class TaskController : BaseController
     /// <response code="500">Error while trying to delete the Task. / Other errors</response>
     /// <param name="taskId">Task Id</param>
     /// <returns></returns>
-    [HttpDelete("/{taskId}")]
+    [HttpDelete("{taskId}")]
     [Consumes("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]

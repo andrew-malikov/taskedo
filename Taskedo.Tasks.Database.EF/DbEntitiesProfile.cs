@@ -1,4 +1,5 @@
 using AutoMapper;
+using Taskedo.Tasks.Domain;
 using Taskedo.Tasks.Domain.CreateTask;
 
 namespace Taskedo.Tasks.Database.EF;
@@ -9,6 +10,6 @@ public class DbEntitiesProfile : Profile
     {
         CreateMap<NewTaskEntity, TaskDbEntity>()
             .ForMember(dest => dest.IsCompleted, (opt) => opt.MapFrom(_ => false));
-        CreateMap<TaskDbEntity, Task>();
+        CreateMap<TaskDbEntity, TaskEntity>();
     }
 }
