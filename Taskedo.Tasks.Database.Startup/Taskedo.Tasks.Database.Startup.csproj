@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Taskedo.Tasks.Database.EF\Taskedo.Tasks.Database.EF.csproj" />
+    <ProjectReference Include="..\Taskedo.Tasks.Database.Context\Taskedo.Tasks.Database.Context.csproj" />
     <ProjectReference Include="..\Taskedo.Tasks.Database.Changes\Taskedo.Tasks.Database.Changes.csproj" />
   </ItemGroup>
 

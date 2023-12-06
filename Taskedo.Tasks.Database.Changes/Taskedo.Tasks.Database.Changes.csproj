@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Taskedo.Tasks.Database.EF\Taskedo.Tasks.Database.EF.csproj" />
+    <ProjectReference Include="..\Taskedo.Tasks.Database.Context\Taskedo.Tasks.Database.Context.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

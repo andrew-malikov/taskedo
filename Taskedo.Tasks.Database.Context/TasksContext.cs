@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Taskedo.Tasks.Database.EF;
+namespace Taskedo.Tasks.Database.Context;
 
 public class TasksContext : DbContext
 {

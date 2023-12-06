@@ -61,7 +61,7 @@ public class QueryTaskHandler : IRequestHandler<GetTaskQuery, ICommandResult>
                 Data = responseTask
             };
         }
-        catch (Exception ex)
+        catch (AutoMapperMappingException ex)
         {
             return new ICommandResult.InternalError
             {

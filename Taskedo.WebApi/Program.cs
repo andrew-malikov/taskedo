@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Taskedo.Swagger;
 using Taskedo.Tasks.Application;
 using Taskedo.Tasks.Application.AddNewTask;
-using Taskedo.Tasks.Database.EF;
+using Taskedo.Tasks.Database.Context;
 using Taskedo.WebApi.Database;
 using Taskedo.WebApi.Logging;
 

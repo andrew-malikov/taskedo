@@ -2,7 +2,7 @@ using AutoMapper;
 using Taskedo.Tasks.Domain;
 using Taskedo.Tasks.Domain.CreateTask;
 
-namespace Taskedo.Tasks.Database.EF;
+namespace Taskedo.Tasks.Database.Context;
 
 public class DbEntitiesProfile : Profile
 {

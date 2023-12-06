@@ -9,8 +9,15 @@ public interface ITaskRepository
 
     /// <param name="pageSize">Number of tasks to return</param>
     /// <param name="pageToken">Begining of the page</param>
+    /// <param name="search">Search by Title and Description</param>
+    /// <param name="isCompleted">Filter by IsCompleted</param>
     /// <returns></returns>
-    Task<Result<IEnumerable<SlimTaskEntity>>> GetAllTasksAsync(int pageSize, DateTime? fromCreatedAtUtc = null);
+    Task<Result<PagedTasks>> GetTasksAsync(
+        int pageSize,
+        IEnumerable<SortRule> sortRules,
+        TaskPageToken? pageToken = null,
+        string? search = null,
+        bool? isCompleted = null);
     Task<Result> DeleteTaskAsync(Guid taskId);
     Task<Result> UpdateTaskAsync(TaskEntity updateTask);
     Task<Result<bool>> HasTaskAsync(Guid taskId);

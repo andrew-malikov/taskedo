@@ -1,6 +1,6 @@
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
-using Taskedo.Tasks.Database.EF;
+using Taskedo.Tasks.Database.Context;
 using Taskedo.Tasks.Domain;
 
 namespace Taskedo.WebApi.Database;

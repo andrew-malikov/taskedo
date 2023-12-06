@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskedo.WebApi", "Taskedo.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskedo.Tasks.Application", "Taskedo.Tasks.Application\Taskedo.Tasks.Application.csproj", "{A749D197-C6AF-4AC9-AF91-ECD616D55E10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskedo.Tasks.Database.EF", "Taskedo.Tasks.Database.EF\Taskedo.Tasks.Database.EF.csproj", "{590B3377-2291-4476-A881-B54762BBE3A8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskedo.Tasks.Database.Context", "Taskedo.Tasks.Database.Context\Taskedo.Tasks.Database.Context.csproj", "{590B3377-2291-4476-A881-B54762BBE3A8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Taskedo.Tasks.Database.Changes", "Taskedo.Tasks.Database.Changes\Taskedo.Tasks.Database.Changes.csproj", "{E422C059-D993-4A18-B3FC-2A340F523622}"
 EndProject

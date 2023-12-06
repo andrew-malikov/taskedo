@@ -53,12 +53,12 @@ public class UpdateTaskHandler : IRequestHandler<UpdateTaskCommand, ICommandResu
             return new ICommandResult.NotFound();
         }
 
-        TaskEntity? updateTaskEntity = null;
+        TaskEntity? updateTaskEntity;
         try
         {
             updateTaskEntity = _mapper.Map<UpdateTaskRequest, TaskEntity>(command.Payload);
         }
-        catch (Exception ex)
+        catch (AutoMapperMappingException ex)
         {
             return new ICommandResult.InternalError
             {

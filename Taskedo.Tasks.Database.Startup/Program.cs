@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Taskedo.Tasks.Database.EF;
+using Taskedo.Tasks.Database.Context;
 
 namespace Taskedo.Tasks.Database.Startup;
 

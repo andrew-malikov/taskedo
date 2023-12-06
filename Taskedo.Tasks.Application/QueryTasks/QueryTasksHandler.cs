@@ -39,11 +39,11 @@ public class QueryTasksHandler : IRequestHandler<GetTasksQuery, ICommandResult>
             };
         }
 
-        DateTime? pageToken = null;
+        TaskPageToken? pageToken = null;
         if (query.Payload.PageToken != null)
         {
-            var createdAtUtcResult = query.Payload.PageToken.ParseDateTimeFromPageToken();
-            if (createdAtUtcResult.IsFailed)
+            var pageTokenResult = query.Payload.PageToken.ParseTaskPageToken();
+            if (pageTokenResult.IsFailed)
             {
                 return new ICommandResult.ValidationError
                 {
@@ -51,24 +51,28 @@ public class QueryTasksHandler : IRequestHandler<GetTasksQuery, ICommandResult>
                 };
             }
 
-            pageToken = createdAtUtcResult.Value;
+            pageToken = pageTokenResult.Value;
         }
 
-        var tasksResult = await _taskRepository.GetAllTasksAsync(query.Payload.PageSize, pageToken);
-        if (tasksResult.IsFailed)
+        var pagedTasksResult = await _taskRepository.GetTasksAsync(
+            query.Payload.PageSize,
+            query.Payload.SortRules,
+            pageToken,
+            query.Payload.Filter.Search,
+            query.Payload.Filter.IsCompleted);
+        if (pagedTasksResult.IsFailed)
         {
             return new ICommandResult.InternalError
             {
-                Errors = tasksResult.Errors
+                Errors = pagedTasksResult.Errors
             };
         }
 
-        var tasks = tasksResult.Value;
+        var pagedTasks = pagedTasksResult.Value;
         string? nextPageToken = null;
-        if (tasks.Any())
+        if (pagedTasks.PageToken != null)
         {
-            var lastTask = tasks.Last();
-            var nextPageTokenResult = lastTask.CreatedAtUtc.SerializeDateTimeAsPageToken();
+            var nextPageTokenResult = pagedTasks.PageToken.SerializeTaskPageToken();
             if (nextPageTokenResult.IsFailed)
             {
                 return new ICommandResult.InternalError
@@ -82,9 +86,9 @@ public class QueryTasksHandler : IRequestHandler<GetTasksQuery, ICommandResult>
         IEnumerable<SlimTaskResponse> responseTasks;
         try
         {
-            responseTasks = _mapper.Map<IEnumerable<SlimTaskResponse>>(tasksResult.Value);
+            responseTasks = _mapper.Map<IEnumerable<SlimTaskResponse>>(pagedTasks.Tasks);
         }
-        catch (Exception ex)
+        catch (AutoMapperMappingException ex)
         {
             return new ICommandResult.InternalError
             {

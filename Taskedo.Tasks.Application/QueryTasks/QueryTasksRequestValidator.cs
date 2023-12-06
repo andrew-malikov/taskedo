@@ -10,5 +10,14 @@ public class QueryTasksRequestValidator : AbstractValidator<QueryTasksRequest>
             .NotNull()
             .GreaterThanOrEqualTo(AvailablePageSize.Min)
             .LessThanOrEqualTo(AvailablePageSize.Max);
+
+        RuleFor(q => q.Filter)
+            .NotNull();
+
+        RuleFor(q => q.Filter.Search)
+            .MaximumLength(1027);
+
+        RuleFor(q => q.SortRules)
+            .NotNull();
     }
 }

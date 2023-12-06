@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy AS build
 WORKDIR /src
 COPY ["Taskedo.Tasks.Domain/Taskedo.Tasks.Domain.csproj", "Taskedo.Tasks.Domain/"]
 COPY ["Taskedo.Tasks.Application/Taskedo.Tasks.Application.csproj", "Taskedo.Tasks.Application/"]
-COPY ["Taskedo.Tasks.Database.EF/Taskedo.Tasks.Database.EF.csproj", "Taskedo.Tasks.Database.EF/"]
+COPY ["Taskedo.Tasks.Database.Context/Taskedo.Tasks.Database.Context.csproj", "Taskedo.Tasks.Database.Context/"]
 COPY ["Taskedo.Tasks.Database.Changes/Taskedo.Tasks.Database.Changes.csproj", "Taskedo.Tasks.Database.Changes/"]
 COPY ["Taskedo.WebApi/Taskedo.WebApi.csproj", "Taskedo.WebApi/"]
 RUN dotnet restore "Taskedo.WebApi/Taskedo.WebApi.csproj" --runtime linux-x64
